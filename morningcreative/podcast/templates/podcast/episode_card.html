@@ -1,0 +1,47 @@
+{% load podcast miditags thumbnail %}
+
+<article class="post-card post post-id_{{ object.pk }} post-kind_{{ object.kind.slug }}{% if object.series %} post-series_{{ object.series.slug }}{% endif %} margin-bottom-5"{% if not full %}{% endif %}>
+    {% if object.thumbnail %}
+        <a href="{{ object.get_absolute_url }}">
+            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.thumbnail '1152x648' crop=True %}">
+        </a>
+    {% elif object.series.thumbnail %}
+        <a href="{{ object.get_absolute_url }}">
+            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.series.thumbnail '1152x648' crop=True %}">
+        </a>
+    {% endif %}
+
+    <div class="post-body">
+        {% if object.title %}
+            <h2 class="h3 margin-top-0"><a href="{{ object.get_absolute_url }}" class="post-title">{{ object.title }}</a></h2>
+        {% endif %}
+
+        <a href="{{ object.get_absolute_url }}" class="text-dark text-decoration-none">
+            {% if first_sentence %}
+                {{ object.get_first_sentence }}
+            {% else %}
+                {{ object.get_excerpt|truncatewords:20 }}
+            {% endif %}
+        </a>
+
+        {% if show_deliverables %}
+            <div class="margin-top-2">
+                {% if object.embeddables.exists %}
+                    <a href="{{ object.get_absolute_url }}" class="btn btn-sm btn-secondary">
+                        <i class="bi bi-play-fill"></i>
+                    </a>
+                {% endif %}
+
+                {% for deliverable in object.downloadables %}
+                    <a href="{{ deliverable.get_deliverable_url }}" title="{{ deliverable.name }}" class="btn btn-sm btn-secondary"{% if deliverable.media %} download{% elif deliverable.url %} target="_blank"{% endif %}>
+                        {% if deliverable.media %}
+                            <i class="bi bi-download"></i>
+                        {% else %}
+                            <i class="bi bi-link"></i>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</article>

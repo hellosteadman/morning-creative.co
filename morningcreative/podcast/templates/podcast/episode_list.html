@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <header class="margin-top-4 margin-bottom-5 container">
+        <div class="grid align-items-center">
+            <div class="cell-tablet-8">
+                <script>
+                    var h1 = document.createElement('p')
+                    var now = new Date()
+                    var day = now.getDay()
+                    var hour = now.getHours()
+                    var isFriday = day == 5
+                    var isSaturday = day == 6
+                    var isSunday = day == 0
+                    var isWeekday = day > 0 && day <= 5
+
+                    if (hour > 5 && hour < 12 && isWeekday) {
+                        h1.innerText = 'You’re just in time to enjoy today’s Morning Creative'
+                    } else if (isFriday || isSaturday) {
+                        h1.innerText = 'Morning Creative will be back with you on Monday'
+                    } else if (isSunday) {
+                        h1.innerText = 'Finally, you can look forward to Mondays with Morning Creative'
+                    } else {
+                        h1.innerHTML = 'Wake up tomorrow to a fresh cup of<br>Morning Creative'
+                    }
+
+                    h1.classList.add('h2')
+
+                    document.currentScript.after(h1)
+                </script>
+                <noscript><h1 class="h2">Wake up every weekday to a fresh cup of<br>Morning Creative</h1></noscript>
+                <p class="lead font-weight-normal margin-bottom-4">Morning Creative is the daily podcast to help you reignite your spark and set yourself up for the day, motivated and energised.</p>
+                {% include 'podcast/buttons.html' %}
+            </div>
+
+            <div class="show-none show-tablet-block cell-tablet-4">
+                <img alt="Podcast artwork" src="{% static 'img/artwork.jpg' %}" class="img-fluid rounded-3 shadow-lg">
+            </div>
+        </div>
+    </header>
+
+    <section id="content" class="container">
+        {% if not request.GET.page %}
+            <div class="grid">
+                <div class="cell-tablet-8">
+                    <p class="h4 margin-bottom-4">New episodes arrive arrive every weekday, and are the perfect accompaniment to your morning routine.</p>
+                </div>
+            </div>
+        {% else %}
+            <h2 class="h3 margin-bottom-4">All episodes</h2>
+        {% endif %}
+
+        <div class="pagination-context">
+            <div class="grid">
+                {% if not request.GET.page %}
+                    {% for obj in object_list|slice:':3' %}
+                        <div class="cell-tablet-4 show-flex">{% include 'podcast/episode_card.html' with object=obj first_sentence=True %}</div>
+                    {% endfor %}
+
+                    <div class="cell-tablet-8">
+                        <p><a href="?page=1#content" class="btn btn-light">Episode archive</a></p>
+                    </div>
+
+                    <div class="cell-tablet-8">
+                        <h1 class="h3 margin-top-4 margin-bottom-3">Daily life as a creative-minded solopreneur is noisy.</h1>
+                        <div class="markdown">
+                            <p>Your household, personal life, and your business are all competing for your attention. Not to mention keeping healthy, seeing your friends, and feeding The Algorithm™ more content.</p>
+                            <p>No wonder your big side project takes a backseat from time to time.</p>
+                            <p>Instead of waiting until the working day has zapped your energy, start your morning with a warm, friendly dash of inspiration.</p>
+                            <p>Morning Creative is the daily podcast for imaginative thinkers and doers working on their Big Project. Each 20-minute episode mixes prompts, gentle provocations, and practical actions you can take today to further your practice.</p>
+                            <p>Join creative advisor Mark Steadman as he invites you to reignite your spark and set yourself up for the day, motivated and energised.</p>
+                            <p>On the days you feel like you’ve got this, you’re right. For every other day, there’s Morning Creative.</p>
+                        </div>
+                    </div>
+                {% else %}
+                    {% for obj in object_list %}
+                        <div class="cell-tablet-4 pagination-item show-flex">{% include 'podcast/episode_card.html' with object=obj first_sentence=True %}</div>
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <div class="cell-12">
+                            <a href="?page={{ page_obj.next_page_number }}" rel="next" class="btn btn-secondary width-100 btn-pagination">Load more</a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <div class="margin-top-4 background-prompts rounded-3 shadow-lg padding-4 text-light">
+                <div class="grid">
+                    <div class="cell-tablet-8 text-center margin-x-auto">
+                        <p class="h3">A journal prompt delivered to your inbox,<br>every weekday</p>
+
+                        <p class="lead font-weight-normal">
+                            Turn an idea into an intention, with a short evening email delivering a simple prompt for your journal,
+                            or to help keep the creative momentum going.
+                        </p>
+
+                        <a href="/prompt/" class="btn btn-lg btn-primary">See the latest prompt</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'podcast/buttons.html' with centre=True margin=True %}
+{% endblock body %}

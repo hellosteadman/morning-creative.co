@@ -1,0 +1,103 @@
+{% load seo static %}<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% include 'seo/head.html' %}
+        <link rel="stylesheet" href="{% static 'css/site.css' %}">
+        {% block head %}{% endblock %}
+        <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+        <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+        <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#071b1f">
+        <meta name="msapplication-TileColor" content="#f6e1d2">
+        <meta name="theme-color" content="#ffffff">
+        <script defer data-domain="{{ request.get_host }}" src="https://plausible.io/js/plausible.js"></script>
+    </head>
+    <body class="{% block body_classes %}{% endblock %}">
+        <div class="show-flex flex-column viewport-height-100">
+            <header class="site-header padding-y-4 padding-bottom-tablet-0">
+                <div class="container">
+                    <div class="show-flex flex-wrap align-items-center justify-content-between">
+                        <a href="/"><img alt="Morning Creative" src="{% static 'img/logo.svg' %}" height="48" class="margin-end-2 margin-bottom-tablet-3"></a>
+
+                        <button type="submit" class="show-tablet-none btn btn-lg" data-toggle="menu">
+                            <i class="bi bi-list"></i>
+                        </button>
+
+                        <ul class="show-none show-tablet-flex nav margin-top-4 margin-tablet-0 margin-start-tablet-n3">
+                            {% for link in main_menu %}
+                                <li class="nav-item">
+                                    <a href="{{ link.url }}" class="nav-link">{{ link.label }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <main class="margin-bottom-4">{% block body %}{% endblock %}</main>
+
+            <footer class="margin-y-4 padding-y-4">
+                <div class="container">
+                    <div class="show-flex align-items-center justify-content-between">
+                        <span>&copy; {% now 'Y' %} Mark Steadman</span>
+                        <ul class="nav">
+                            <li class="nav-item">
+                                <a href="https://www.instagram.com/hellosteadman/" rel="me" target="_blank" class="nav-link text-dark">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="https://www.threads.net/@hellosteadman/" rel="me" target="_blank" class="nav-link text-dark">
+                                    <i class="bi bi-threads"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="https://twitter.com/hellosteadman/" rel="me" target="_blank" class="nav-link text-dark">
+                                    <i class="bi bi-twitter"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="https://www.youtube.com/@hellosteadman/" rel="me" target="_blank" class="nav-link text-dark">
+                                    <i class="bi bi-youtube"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="https://www.tiktok.com/@hellosteadman" rel="me" target="_blank" class="nav-link text-dark">
+                                    <i class="bi bi-tiktok"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="https://www.linkedin.com/in/hellosteadman/" rel="me" target="_blank" class="nav-link text-dark">
+                                    <i class="bi bi-linkedin"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="https://github.com/hellosteadman/" rel="me" target="_blank" class="nav-link text-dark">
+                                    <i class="bi bi-github"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <div id="contact" class="modal fade" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down">
+                <div class="modal-content show-flex flex-column"></div>
+            </div>
+        </div>
+
+        <script src="{% static 'js/site.js' %}"></script>
+        {% block javascript %}{% endblock %}
+    </body>
+</html>

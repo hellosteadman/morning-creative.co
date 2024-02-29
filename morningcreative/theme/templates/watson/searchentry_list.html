@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load thumbnail podcast %}
+
+{% block body %}
+    <header class="margin-top-4 container">
+        <div class="show-flex margin-bottom-2 justify-content-between">
+            <h1 class="h2">Search results</h1>
+            <form>
+                <input name="q" type="search" value="{{ q }}" placeholder="Search" class="form-control">
+            </form>
+        </div>
+
+        {% if object.description %}
+            <div class="lead font-weight-normal">Here are the results for your query</div>
+        {% endif %}
+    </header>
+
+    <section id="content" class="container pagination-context">
+        <div class="grid grid-masonry">
+            {% for object in object_list %}
+                <div class="cell-tablet-4 pagination-item">
+                    <article class="post-card post post-id_{{ object.pk }} post-kind_{{ object.meta.kind }}{% if object.meta.series %} post-series_{{ object.meta.series }}{% endif %}{% if object.meta.adult %} has-mature-content{% endif %} margin-bottom-5">
+                        {% if object.meta.thumbnail %}
+                            <a href="{{ object.meta.permalink|default:object.get_absolute_url }}"{% if object.meta.permalink %} target="_blank"{% endif %}>
+                                {% if object.meta.kind == 'podcast' or object.meta.kind == 'episode' %}
+                                    <img alt="{{ object.meta.kind|capfirst }} thumbnail" src="{% thumbnail object.meta.thumbnail '1152x1152' crop=True %}">
+                                {% else %}
+                                    <img alt="{{ object.meta.kind|capfirst }} thumbnail" src="{% thumbnail object.meta.thumbnail '1152x648' crop=True %}">
+                                {% endif %}
+                            </a>
+                        {% endif %}
+
+                        <div class="post-body">
+                            {% if object.title %}
+                                <h2 class="h3 margin-top-0"><a href="{{ object.get_absolute_url }}"{% if object.permalink %} target="_blank"{% endif %} class="post-title">{{ object.title }}</a></h2>
+                            {% endif %}
+
+                            <a href="{{ object.meta.permalink|default:object.get_absolute_url }}"{% if object.meta.permalink %} target="_blank"{% endif %} class="text-dark text-decoration-none">{{ object.meta.excerpt|safe|truncatewords:20 }}</a>
+                        </div>
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" rel="next" class="btn btn-secondary width-100 btn-pagination">Load more</a>
+        {% endif %}
+    </section>
+{% endblock body %}

@@ -1,0 +1,56 @@
+@import 'variables';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/variables-dark';
+@import '~bootstrap/scss/maps';
+@import '~bootstrap/scss/mixins';
+@import 'utilities';
+@import '~bootstrap/scss/root';
+@import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/type';
+@import 'type';
+
+:root {
+    --#{$prefix}headings-font-weight: 500;
+    --#{$prefix}h1-font-size: #{$h1-font-size};
+    --#{$prefix}h2-font-size: #{$h2-font-size};
+    --#{$prefix}h3-font-size: #{$h3-font-size};
+    --#{$prefix}h4-font-size: #{$h4-font-size};
+    --#{$prefix}h5-font-size: #{$h5-font-size};
+    --#{$prefix}h6-font-size: #{$h6-font-size};
+}
+
+@import '~bootstrap/scss/images';
+@import '~bootstrap/scss/buttons';
+@import '~bootstrap/scss/alert';
+@import '~bootstrap/scss/nav';
+@import 'grid';
+@import '~bootstrap/scss/helpers';
+@import '~bootstrap/scss/utilities/api';
+@import '~bootstrap/scss/transitions';
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/modal';
+@import '~bootstrap/scss/badge';
+@import '~bootstrap/scss/spinners';
+@import '~bootstrap-icons';
+
+img {
+    max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    a:link, a:visited, a:active, a:hover {
+        text-decoration: none;
+        color: $dark;
+    }
+}
+
+@import 'menu';
+@import 'buttons';
+@import 'posts';
+@import 'markdown';
+@import 'oembed';
+@import 'modal';
+@import 'sticky';
+
+@import 'prompts';

@@ -1,0 +1,122 @@
+<script>
+    document.currentScript.after(
+        (
+            function (token) {
+                var div = document.createElement('div')
+                var url = '/~/oembed/' + token + '/'
+                var divWidth = document.currentScript.parentNode.clientWidth
+                var load = function () {
+                    fetch(
+                        url,
+                        {
+                            mode: 'cors'
+                        }
+                    ).then(
+                        (response) => {
+                            response.json().then(
+                                (json) => {
+                                    div.classList.remove('background-light')
+                                    div.classList.remove('rounded-3')
+                                    div.classList.remove('show-flex')
+                                    div.classList.remove('flex-row')
+                                    div.classList.remove('align-items-center')
+                                    div.classList.add('ratio')
+                                    div.classList.add('ratio-unknown')
+                                    div.style.height = 'auto'
+                                    div.innerHTML = json.html
+
+                                    var iframe = div.querySelector('iframe')
+
+                                    divWidth = div.clientWidth
+
+                                    if (!iframe) {
+                                        div.classList.remove('ratio-unknown')
+                                        div.classList.remove('ratio')
+                                        return
+                                    }
+
+                                    var iframeWidth = iframe.getAttribute('width')
+                                    var iframeHeight = iframe.getAttribute('height')
+
+                                    if (iframeWidth !== null) {
+                                        iframeWidth = iframeWidth.toString()
+                                    }
+
+                                    if (iframeHeight !== null) {
+                                        iframeHeight = iframeHeight.toString()
+                                    }
+
+                                    if (iframeWidth.substr(iframeWidth.length - 2) === 'px') {
+                                        iframeWidth = iframeWidth.substr(0, iframeWidth.length - 2)
+                                    }
+
+                                    if (iframeWidth.substr(iframeWidth.length - 1) == '%') {
+                                        var percent = parseInt(iframeWidth.substr(0, iframeWidth.length - 1))
+                                        
+                                        if (!iframeHeight) {
+                                            iframeWidth = divWidth / 100 * percent
+                                            iframeHeight = parseInt(iframeWidth / 16 * 9)
+                                        } else {
+                                            div.classList.remove('ratio-unknown')
+                                            div.classList.remove('ratio')
+                                            return
+                                        }
+                                    } else if (iframeHeight.substr(iframeHeight.length - 2) == 'px') {
+                                        iframeHeight = iframeHeight.substr(0, iframeHeight.length - 2)
+                                    }
+
+                                    iframeWidth = parseInt(iframeWidth)
+                                    iframeHeight = parseInt(iframeHeight)
+
+                                    if (isNaN(iframeWidth) || isNaN(iframeHeight)) {
+                                        div.classList.remove('ratio-unknown')
+                                        div.classList.remove('ratio')
+                                        return
+                                    }
+
+                                    iframeHeight = parseInt(divWidth / iframeWidth * iframeHeight)
+                                    iframe.setAttribute('width', divWidth)
+                                    iframe.setAttribute('height', iframeHeight)
+                                    
+                                    div.style.height = iframeHeight + 'px'
+                                    div.classList.remove('ratio-unknown')
+                                }
+                            )
+                        }
+                    ).catch(
+                        (err) => {
+                            div.classList.remove('ratio')
+                            div.classList.remove('ratio-unknown')
+                        }
+                    )
+                }
+
+                var scroll = function () {
+                    var rect = div.getBoundingClientRect()
+                    var inViewport = (
+                        rect.top >= 0 &&
+                        rect.left >= 0 &&
+                        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+                        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+                    )
+
+                    if (inViewport) {
+                        window.removeEventListener('scroll', scroll)
+                        load()
+                    }
+                }
+
+                div.classList.add('background-light')
+                div.classList.add('rounded-3')
+                div.classList.add('show-flex')
+                div.classList.add('flex-row')
+                div.classList.add('align-items-center')
+                div.innerHTML = '<div class="margin-auto"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>'
+                div.style.height = parseInt(divWidth / 16 * 9) + 'px'
+
+                window.addEventListener('scroll', scroll)
+                return div
+            }
+        )('{{ token|escapejs }}')
+    )
+</script>

@@ -1,0 +1,49 @@
+{% load miditags thumbnail %}
+
+<tr>
+    <td class="post-content-sans-serif" style="font-family: {{ body_font }}; vertical-align: top; font-size: 17px; line-height: 1.5em; color: #15212A; padding-bottom: 20px; border-bottom: 1px solid #e5eff5; max-width: 600px;" valign="top">
+        <p>Hey, thanks for signing up to Morning Creative&rsquo;s journal prompts. Every weekday evening, I&rsquo;ll share with you a thought, a question, or a provocation you can use to fill in your journal. Some will get your creative juices flowing; some probably won&rsquo;t feel as relevant.</p>
+        <p>Here's what the last one looked like:</p>
+    </td>
+</tr>
+
+{% if latest_post %}
+    <tr>
+        <td class="post-title" style="font-family: {{ body_font }}; vertical-align: top; color: #15212A; padding-bottom: 10px; font-size: 42px; line-height: 1.1em; font-weight: 700; text-align: center;" valign="top" align="center">
+            <span style="text-align: center; margin-top: 50px; overflow-wrap: anywhere;">{{ latest_post.prompt.title|default:latest_post.title }}</span>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="font-family: {{ body_font }}; font-size: 18px; vertical-align: top; color: #15212A;" valign="top">
+            <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;">
+                <tr>
+                    <td class="post-meta" style="font-family: {{ body_font }}; vertical-align: top; padding-bottom: 50px; white-space: nowrap; color: #738a94; font-size: 13px; letter-spacing: 0.2px; text-transform: uppercase; text-align: center;" valign="top" align="center">By Mark Steadman</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    {% if latest_post.episode %}
+        <tr>
+            <td style="vertical-align: top; padding-bottom: 30px; width: 100%;" width="100%" valign="top">
+                <a href="{{ base_url }}{{ latest_post.episode.get_absolute_url }}"><img alt="Audio version" src="{{ latest_post.episode.get_player_image }}" width="600" style="border: none; -ms-interpolation-mode: bicubic; max-width: 100%;"></a>
+            </td>
+        </tr>
+    {% endif %}
+
+    {% if latest_post.prompt %}
+        <tr>
+            <td class="post-content post-content-sans-serif" style="font-family: {{ body_font }}; vertical-align: top; font-size: 21px; line-height: 1.5em; color: #15212A; padding-bottom: 20px; max-width: 600px;" valign="top">
+                {% miditags latest_post.prompt.body 'email' %}
+            </td>
+        </tr>
+    {% endif %}
+
+    <tr>
+        <td class="post-content post-content-sans-serif" style="font-family: {{ body_font }}; vertical-align: top; font-size: 17px; line-height: 1.5em; color: #15212A; padding-bottom: 20px; border-bottom: 1px solid #e5eff5; max-width: 600px;" valign="top">
+            {% miditags latest_post.body 'email' %}
+        </td>
+    </tr>
+
+{% endif %}

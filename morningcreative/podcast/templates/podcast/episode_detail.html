@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load podcast thumbnail bootstrap5 oembed miditags %}
+
+{% block body %}
+    <section class="margin-top-4 container">
+        <article class="post post-id_{{ object.pk }} margin-bottom-3">
+            {% if object.published or object.series_id %}
+                <div class="post-meta text-center">
+                    <p>
+                        {% if object.published %}
+                            <i class="bi bi-calendar"></i>
+                            <time datetime="{{ object.published.isoformat }}">{{ object.published|date }}</time>
+                        {% endif %}
+
+                        {% if object.series_id %}
+                            <a href="{{ object.series.get_absolute_url }}" rel="up" class="text-dark text-decoration-none{% if object.published %} margin-start-2{% endif %}">
+                                <i class="bi bi-{% if object.series.rss %}mic{% else %}folder{% endif %}"></i>
+                                {{ object.series.name }}
+                            </a>
+                        {% endif %}
+                    </p>
+                </div>
+            {% endif %}
+
+            <h1 class="display-1 font-weight-bold text-center">
+                <a href="{{ object.get_absolute_url }}" class="post-title">{{ object.title }}</a>
+            </h1>
+
+            {% if object.excerpt %}
+                <div class="grid margin-top-4">
+                    <div class="cell-tablet-8 margin-x-auto">
+                        <p class="lead font-weight-normal text-center">{{ object.excerpt }}</p>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if object.oembed %}
+                <div class="margin-top-4 ratio ratio-unknown shadow-lg rounded-3 oembed-container">{{ object.oembed|oembed }}</div>
+            {% elif object.thumbnail %}
+                <img alt="Post thumbnail" src="{% thumbnail object.thumbnail '1872x1053' crop=True upscale=True %}" class="margin-top-4 img-fluid shadow-lg rounded-1">
+            {% endif %}
+            
+            <div class="grid margin-top-4">
+                <div class="cell-tablet-8 margin-x-auto order-2 order-laptop-1">
+                    <div class="post-body">
+                        <div class="markdown">{% miditags object.body %}</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <aside class="margin-top-4 background-prompts rounded-3 shadow-lg padding-4 text-light">
+            <div class="grid">
+                <div class="cell-tablet-8 text-center margin-x-auto">
+                    <p class="h3">A journal prompt delivered to your inbox,<br>every weekday</p>
+
+                    <p class="lead font-weight-normal">
+                        Turn an idea into an intention, with a short evening email delivering a simple prompt for your journal,
+                        or to help keep the creative momentum going.
+                    </p>
+
+                    <a href="/prompt/" class="btn btn-lg btn-primary">See the latest prompt</a>
+                </div>
+            </div>
+        </aside>
+    </section>
+{% endblock body %}

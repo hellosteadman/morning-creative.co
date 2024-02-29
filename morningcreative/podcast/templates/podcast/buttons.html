@@ -1,0 +1,18 @@
+{% load static %}
+
+<div class="show-flex{% if centre %} justify-content-center{% endif %}{% if margin %} margin-y-4{% endif %}">
+    <a href="https://podcasts.apple.com/podcast/id1718809703" rel="external me nofollow" class="margin-x-1">
+        <img alt="Listen on Apple Podcasts" src="{% static 'img/applepodcasts-dark.svg' %}"  height="40" class="show-none show-tablet-inline shadow-lg">
+        <img alt="Listen on Apple Podcasts" src="{% static 'img/applepodcasts.svg' %}" height="40" class="show-tablet-none">
+    </a>
+    
+    <a href="https://open.spotify.com/show/0UULvDtqdkxxooecPnKt32" rel="external me nofollow" class="margin-x-1">
+        <img alt="Listen on Spotify" src="{% static 'img/spotify-dark.svg' %}" height="40" class="show-none show-tablet-inline shadow-lg">
+        <img alt="Listen on Spotify" src="{% static 'img/spotify.svg' %}" height="40" class="show-tablet-none">
+    </a>
+
+    <a href="https://www.youtube.com/@hellosteadman" rel="external me nofollow" class="margin-x-1">
+        <img alt="Watch on YouTube" src="{% static 'img/youtube-dark.svg' %}" height="40" class="show-none show-tablet-inline shadow-lg">
+        <img alt="Watch on YouTube" src="{% static 'img/youtube.svg' %}" height="40" class="show-tablet-none">
+    </a>
+</div>

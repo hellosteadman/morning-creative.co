@@ -1,0 +1,9 @@
+.oembed-container {
+    position: relative;
+    overflow: hidden;
+
+    iframe {
+        display: block;
+        margin: 0;
+    }
+}

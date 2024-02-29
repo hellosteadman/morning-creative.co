@@ -1,0 +1,69 @@
+{% load thumbnail %}<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="//morningcreative.co/static/css/site.css">
+        <title>Page not found</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="//morningcreative.co/static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="//morningcreative.co/static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="//morningcreative.co/static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="//morningcreative.co/static/favicon/site.webmanifest">
+        <link rel="mask-icon" href="//morningcreative.co/static/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+    </head>
+    <body>
+        <div class="show-flex flex-column viewport-height-100">
+            <main class="margin-y-auto padding-y-4">
+                <div class="container text-center">
+                    <div class="grid">
+                        <div class="cell-laptop-8 margin-x-auto">
+                            <h1 class="h2">Oops</h1>
+                            <p class="lead font-weight-normal">
+                                Sorry, looks like the thing you were looking for has been
+                                removed or scrubbed from the Internet out of embarrassment.
+                            </p>
+
+                            {% if search_results.exists %}
+                                <h2 class="h5 margin-top-4 margin-bottom-2">Maybe {% if search_results.count > 1 %}one of these{% else %}this{% endif %} is closer to what you&rsquo;re looking for...</h2>
+                        </div>
+                    </div>
+
+                    <div class="grid{% if search_results.count > 2 %} grid-masonry{% endif %}">
+                        {% for object in search_results|slice:':3' %}
+                            <div class="cell-tablet-4{% if search_results.count < 3 %} margin-x-auto{% endif %}">
+                                <article class="post-card post post-id_{{ object.pk }} post-kind_{{ object.meta.kind }}{% if object.meta.series %} post-series_{{ object.meta.series }}{% endif %}{% if object.meta.adult %} has-mature-content{% endif %} margin-bottom-5">
+                                    {% if object.meta.thumbnail %}
+                                        <a href="{{ object.meta.permalink|default:object.get_absolute_url }}"{% if object.meta.permalink %} target="_blank"{% endif %}>
+                                            {% if object.meta.kind == 'podcast' or object.meta.kind == 'episode' %}
+                                                <img alt="{{ object.meta.kind|capfirst }} thumbnail" src="{% thumbnail object.meta.thumbnail '1152x1152' crop=True %}">
+                                            {% else %}
+                                                <img alt="{{ object.meta.kind|capfirst }} thumbnail" src="{% thumbnail object.meta.thumbnail '1152x648' crop=True %}">
+                                            {% endif %}
+                                        </a>
+                                    {% endif %}
+
+                                    <div class="post-body">
+                                        {% if object.title %}
+                                            <h2 class="h3 margin-top-0"><a href="{{ object.get_absolute_url }}"{% if object.permalink %} target="_blank"{% endif %} class="post-title">{{ object.title }}</a></h2>
+                                        {% endif %}
+
+                                        <a href="{{ object.meta.permalink|default:object.get_absolute_url }}"{% if object.meta.permalink %} target="_blank"{% endif %} class="text-dark text-decoration-none">{{ object.meta.excerpt|safe|truncatewords:20 }}</a>
+                                    </div>
+                                </article>
+                            </div>
+                        {% endfor %}
+                    </div>
+                            {% else %}
+                                <div>
+                                    <a href="../" class="btn btn-secondary">Go back a step</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

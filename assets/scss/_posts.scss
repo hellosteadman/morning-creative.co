@@ -1,0 +1,22 @@
+.post-card {
+    border-radius: $border-radius;
+    box-shadow: $box-shadow-lg;
+
+    .post-repost, .post-header, .post-body, .post-footer {
+        padding: 1rem;
+    }
+
+    .post-repost {
+        background: #ECF4FB;
+    }
+
+    .post-series-thumbnail {
+        display: block;
+        width: 64px;
+        height: 64px;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+}

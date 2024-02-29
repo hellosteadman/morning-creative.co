@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load bootstrap5 miditags static thumbnail %}
+
+{% block body %}
+    <section class="container margin-y-4">
+        <div class="grid margin-bottom-tablet-4">
+            <div class="cell-tablet-8">
+                <p class="display-1 font-weight-bold">{{ object.title }}</p>
+            </div>
+
+            <div class="cell-tablet-12">
+                <div class="background-light rounded-3 padding-3">
+                    <p class="h3">Get a prompt like this in your inbox every weekday.</p>
+                    <form action="{% url 'create_subscriber' %}" method="post" class="show-tablet-flex">
+                        <div class="margin-end-tablet-5 flex-grow-1">{% bootstrap_field subscribe_form.email show_label=False %}</div>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-lightbulb"></i>
+                            Brighten your inbox
+                        </button>
+
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="cell-tablet-8">
+                <p class="markdown">{% miditags object.body %}</p>
+            </div>
+
+            <div class="cell-tablet-4">
+                <div class="rounded background-light shadow-lg">
+                    {% if episode %}
+                        <a href="{{ episode.get_absolute_url }}"><img alt="Episode artwork" src="{% thumbnail episode.thumbnail '592x592' crop=True %}" class="img-fluid rounded margin-bottom-2"></a>
+                        <div class="padding-3">
+                            <p class="h4"><a href="{{ episode.get_absolute_url }}" class="text-dark text-decoration-none">{{ episode.title }}</a></p>
+                            <p>Take a mindful moment to think about this prompt, in the accompanying Morning Creative episode.</p>
+                        </div>
+                    {% else %}
+                        <a href="/"><img alt="Podcast artwork" src="{% static 'img/artwork.jpg' %}" class="img-fluid rounded margin-bottom-2"></a>
+                        <div class="padding-3">
+                            <p>Take a mindful moment to think about this prompt, in the latest episode of Morning Creative.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock body %}

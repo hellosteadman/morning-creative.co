@@ -1,0 +1,73 @@
+.markdown {
+    font-size: 1.25rem;
+
+    img {
+        display: block;
+        max-width: 100%;
+        margin: 1rem auto;
+    }
+
+    .codehilite {
+        padding: 1rem;
+        border-radius: $border-radius;
+        margin-bottom: 1em;
+    }
+
+    .ratio {
+        margin-bottom: 2em;
+    }
+
+    h2, h3, h4, h5, h6 {
+        margin-top: 1.5rem;
+    }
+
+    h2 {
+        font-size: $font-size-base * 1.75;
+    }
+
+    h3 {
+        font-size: $font-size-base * 1.5;
+    }
+
+    h4 {
+        $h5-font-size: $font-size-base * 1.25;
+    }
+
+    h5, h6 {
+        $h6-font-size: $font-size-base * 1.2;
+    }
+
+    li {
+        margin-bottom: .5rem;
+
+        ul, ol {
+            margin-top: .5rem;
+        }
+    }
+
+    blockquote {
+        border-left: 2px solid $dark;
+        marign-bottom: 1rem;
+        padding-left: calc(1rem + 2px);
+        font-family: 'Merriweather', serif;
+        font-weight: 300;
+
+        b {
+            font-weight: 700;
+        }
+    }
+
+    > p > img,
+    > .ratio {
+        overflow: hidden;
+        margin: 2rem auto;
+
+        @include media-breakpoint-up(tablet) {
+            position: relative;
+            margin-left: -25%;
+            margin-right: 0;
+            width: 150%;
+            max-width: 150%;
+        }
+    }
+}

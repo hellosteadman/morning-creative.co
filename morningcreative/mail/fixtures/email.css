@@ -1,0 +1,280 @@
+.post-content img {
+    max-width: 100%;
+}
+
+.view-online-link {
+    word-wrap: none;
+    white-space: nowrap;
+    color: #15212A;
+}
+
+.kg-nft-link {
+    display: block;
+    text-decoration: none !important;
+    color: #15212A !important;
+    font-family: inherit !important;
+    font-size: 14px;
+    line-height: 1.3em;
+    padding-top: 4px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 4px;
+}
+
+.kg-twitter-link {
+    display: block;
+    text-decoration: none !important;
+    color: #15212A !important;
+    font-family: inherit !important;
+    font-size: 15px;
+    padding: 8px;
+    line-height: 1.3em;
+}
+
+table.kg-callout-card {
+    width: 100%;
+    min-width: 100%;
+    padding: 0 20px;
+    margin: 20px 0;
+}
+
+table.kg-callout-card a.kg-callout-block-link {
+    text-decoration: none;
+    color: #15212A;
+    display: block;
+    margin: 10px 0;
+}
+
+.kg-callout-card-blue {
+    background: rgba(33,172,232,.12);
+}
+
+.kg-callout-card-green {
+    background: rgba(52,183,67,.12);
+}
+
+@media only screen and (max-width: 620px) {
+    table.body {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    table.body p,
+    table.body ul,
+    table.body ol,
+    table.body td,
+    table.body span {
+        font-size: 16px !important;
+    }
+
+    table.body pre {
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
+    }
+
+    table.body .wrapper,
+    table.body .article {
+        padding: 0 10px !important;
+    }
+
+    table.body .content {
+        padding: 0 !important;
+    }
+
+    table.body .container {
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    table.body .main {
+        border-left-width: 0 !important;
+        border-radius: 0 !important;
+        border-right-width: 0 !important;
+    }
+
+    table.body .btn table {
+        width: 100% !important;
+    }
+
+    table.body .btn a {
+        width: 100% !important;
+    }
+
+    table.body .img-responsive {
+        height: auto !important;
+        max-width: 100% !important;
+        width: auto !important;
+    }
+
+    table.body .site-icon img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    table.body .site-url a {
+        font-size: 14px !important;
+        padding-bottom: 15px !important;
+    }
+
+    table.body .post-meta {
+        white-space: normal !important;
+        font-size: 12px !important;
+        line-height: 1.5em;
+    }
+
+    table.body .view-online-link,
+    table.body .footer,
+    table.body .footer a {
+        font-size: 12px !important;
+    }
+
+    table.body .post-title a {
+        font-size: 32px !important;
+        line-height: 1.15em !important;
+    }
+
+    table.body .kg-bookmark-card {
+        width: 90vw !important;
+    }
+
+    table.body .kg-bookmark-thumbnail {
+        display: none !important;
+    }
+
+    table.body .kg-bookmark-metadata span {
+        font-size: 13px !important;
+    }
+
+    table.body .kg-embed-card {
+        max-width: 90vw !important;
+    }
+
+    table.body h1 {
+        font-size: 32px !important;
+        line-height: 1.3em !important;
+    }
+
+    table.body h2 {
+        font-size: 26px !important;
+        line-height: 1.22em !important;
+    }
+
+    table.body h3 {
+        font-size: 21px !important;
+        line-height: 1.25em !important;
+    }
+
+    table.body h4 {
+        font-size: 19px !important;
+        line-height: 1.3em !important;
+    }
+
+    table.body h5 {
+        font-size: 16px !important;
+        line-height: 1.4em !important;
+    }
+
+    table.body h6 {
+        font-size: 16px !important;
+        line-height: 1.4em !important;
+    }
+
+    table.body blockquote {
+        font-size: 17px;
+        line-height: 1.6em;
+        margin-bottom: 0;
+        padding-left: 15px;
+    }
+
+    table.body blockquote.kg-blockquote-alt {
+        border-left: 0 none !important;
+        margin: 0 0 2.5em 0 !important;
+        padding: 0 50px 0 50px !important;
+        font-size: 1.2em;
+    }
+
+    table.body blockquote + * {
+        margin-top: 1.5em !important;
+    }
+
+    table.body hr {
+        margin: 2em 0 !important;
+    }
+
+    table.body figcaption,
+    table.body figcaption a {
+        font-size: 13px !important;
+    }
+}
+
+@media all {
+    .ExternalClass {
+        width: 100%;
+    }
+
+    .ExternalClass,
+    .ExternalClass p,
+    .ExternalClass span,
+    .ExternalClass font,
+    .ExternalClass td,
+    .ExternalClass div {
+        line-height: 100%;
+    }
+
+    .apple-link a {
+        color: inherit !important;
+        font-family: inherit !important;
+        font-size: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+        text-decoration: none !important;
+    }
+
+    #MessageViewBody a {
+        color: inherit;
+        text-decoration: none;
+        font-size: inherit;
+        font-family: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+    }
+
+    .btn-primary table td:hover {
+        background-color: #34495e !important;
+    }
+
+    .btn-primary a:hover {
+        background-color: #34495e !important;
+        border-color: #34495e !important;
+    }
+}
+
+.c-btn {
+    display: block;
+    padding: 16px 32px;
+    background-color: #000C2D;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 600;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    letter-spacing: .5px;
+    text-align: center;
+    text-transform: initial;
+    white-space: nowrap;
+    border: none;
+    border-radius: 32px;
+}
+
+.c-btn--light {
+    color: #000C2D !important;
+    background-color: #EEF1F0;
+}
+
+.c-btn--action {
+    background-color: #e7131a;
+}
+
+.c-tags a {
+    color: #e7131a;
+    margin-right: 8px;
+}

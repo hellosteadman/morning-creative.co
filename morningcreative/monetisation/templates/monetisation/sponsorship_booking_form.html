@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block body %}
+    <main class="o-wrapper">
+        <article>
+            <header>
+                <div class="o-grid">
+                    <div class="o-grid__col o-grid__col--center o-grid__col--4-4-s">
+                        <div class="c-post-header">
+                            <h1 class="c-post-header__title">Sponsor an issue of Morning Creative</h1>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="o-grid">
+                <div class="o-grid__col o-grid__col--center o-grid__col--4-4-s">
+                    <div class="c-post">
+                        <form action="{{ request.path }}" method="post" class="sponsorship-form" novalidate>
+                            <div class="c-content">
+                                <hr>
+                                <p>The current price to sponsor an issue is &pound;1. Each time a slot is booked, the price of sponsorship goes up by &pound;1.</p>
+                                {% for field in form.visible_fields %}
+                                    <div>
+                                        {% for error in field.errors %}
+                                            <div class="u-alert u-alert--invalid">{{ error }}</div>
+                                        {% endfor %}
+
+                                        <label for="id_{{ field.html_name }}" class="u-mb-8 u-type-500">{{ field.label }}</label>
+                                        <div class="u-color-gray">{{ field.help_text }}</div>
+                                        {{ field }}
+                                    </div>
+                                {% endfor %}
+
+                                <div class="kg-card kg-code-card u-mt-16 u-mb-16">
+                                    <pre style="white-space:normal"><b>Sample:</b> <span class="message-sample"></span></pre>
+                                </div>
+
+                                <h2>The rules</h2>
+                                <p>I (Mark Steadman) reserve the right to refuse to run an ad for any reason. If I refuse, I'll refund your money.</p>
+                                <p>I also reserve the right to make small tweaks to the text, to keep the style consistent.</p>
+                                {% csrf_token %}
+                                <button type="submit" class="c-btn c-btn--action c-btn--full">Book slot (&pound;{{ pricing.current|intcomma }})</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </main>
+{% endblock body %}

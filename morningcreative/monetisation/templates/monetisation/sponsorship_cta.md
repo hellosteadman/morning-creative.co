@@ -1,0 +1,1 @@
+{% if available is not False %}Sponsor the next issue of Morning Creative for just £1. But be quick – the price goes up by £1 each time a slot is booked.{% elif announcement %}{{ announcement.body }}{% endif %}

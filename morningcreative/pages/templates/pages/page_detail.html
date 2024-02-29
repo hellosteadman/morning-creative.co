@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load oembed podcast miditags thumbnail %}
+
+{% block body %}
+    <section class="margin-top-4 container">
+        <article class="page page-id_{{ object.pk }} margin-bottom-3">
+            <h1 class="display-1 font-weight-bold text-center">
+                <a href="{{ object.get_absolute_url }}" class="post-title">{{ object.headline|default:object.name }}</a>
+            </h1>
+
+            {% if object.oembed %}
+                <div class="margin-top-4 ratio ratio-unknown shadow-lg rounded-3 oembed-container">{{ object.oembed|oembed }}</div>
+            {% elif object.header %}
+                <img alt="{{ object.name }} thumbnail" src="{% thumbnail object.header '1872x1053' crop=True upscale=True %}" class="margin-top-4 img-fluid shadow-lg rounded-1">
+            {% endif %}
+
+            <div class="grid margin-top-4">
+                <div class="cell-tablet-8 margin-x-auto">
+                    <div class="post-body">
+                        <div class="markdown">{% miditags object.body %}</div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+{% endblock body %}
