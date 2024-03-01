@@ -18,6 +18,7 @@
                     </button>
 
                     {% csrf_token %}
+                    {{ subscribe_form.hidden_fields|join:'' }}
                 </form>
                 <p>
                     I won&rsquo;tt sell your data or abuse your inbox, ever.
@@ -50,3 +51,20 @@
         </div>
     </section>
 {% endblock body %}
+
+{% block javascript %}
+    <script>
+        document.querySelectorAll('input[name="timezone"]').forEach(
+            function (input) {
+                var dateFormat = Intl.DateTimeFormat()
+                var options = dateFormat.resolvedOptions()
+                var timezone = options.timeZone
+                var choices = [{% for choice in subscribe_form.timezone.field.choices %}'{{ choice.0|escapejs }}'{% if not forloop.last %}, {% endif %}{% endfor %}]
+
+                if (choices.indexOf(timezone) !== -1) {
+                    input.value = timezone
+                }
+            }
+        )
+    </script>
+{% endblock javascript %}

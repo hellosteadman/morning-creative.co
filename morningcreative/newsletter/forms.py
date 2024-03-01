@@ -7,6 +7,7 @@ from morningcreative.mail.tasks import send_email
 from .helpers import random_phrase
 from .models import Subscriber, Unsubscriber
 import jwt
+import pytz
 import re
 
 
@@ -110,6 +111,16 @@ class CreateSubscriberForm(forms.Form):
         )
     )
 
+    timezone = forms.ChoiceField(
+        label='Timezone',
+        widget=forms.HiddenInput(),
+        initial=settings.TIME_ZONE,
+        choices=[
+            (z, z.replace('_', ' '))
+            for z in sorted(pytz.common_timezones_set)
+        ]
+    )
+
     def __init__(self, *args, **kwargs):
         self.instance = kwargs.pop('instance', None)
         super().__init__(*args, **kwargs)
@@ -125,7 +136,8 @@ class CreateSubscriberForm(forms.Form):
         params = {
             'n': self.cleaned_data['name'] or '',
             'e': self.cleaned_data['email'].lower(),
-            'p': hashed_phrase
+            'p': hashed_phrase,
+            'z': self.cleaned_data['timezone']
         }
 
         token = jwt.encode(

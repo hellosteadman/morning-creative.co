@@ -9,6 +9,7 @@ class SubscriberQuerySet(models.QuerySet):
 
         name = token['n']
         email = token['e']
+        timezone = token['z']
         created = False
 
         obj = self.filter(
@@ -23,6 +24,7 @@ class SubscriberQuerySet(models.QuerySet):
             created = True
 
         obj.name = name or obj.name or ''
+        obj.timezone = timezone
         obj.save()
 
         if created:
