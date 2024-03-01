@@ -23,25 +23,5 @@
                 {{ object.get_excerpt|truncatewords:20 }}
             {% endif %}
         </a>
-
-        {% if show_deliverables %}
-            <div class="margin-top-2">
-                {% if object.embeddables.exists %}
-                    <a href="{{ object.get_absolute_url }}" class="btn btn-sm btn-secondary">
-                        <i class="bi bi-play-fill"></i>
-                    </a>
-                {% endif %}
-
-                {% for deliverable in object.downloadables %}
-                    <a href="{{ deliverable.get_deliverable_url }}" title="{{ deliverable.name }}" class="btn btn-sm btn-secondary"{% if deliverable.media %} download{% elif deliverable.url %} target="_blank"{% endif %}>
-                        {% if deliverable.media %}
-                            <i class="bi bi-download"></i>
-                        {% else %}
-                            <i class="bi bi-link"></i>
-                        {% endif %}
-                    </a>
-                {% endfor %}
-            </div>
-        {% endif %}
     </div>
 </article>
