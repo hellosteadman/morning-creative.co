@@ -189,8 +189,7 @@ def send_delivery(pk):
         body_context={
             'object': obj.post,
             'sponsor': sponsor,
-            'body': re.sub(MARKDOWN_LINK_REGEX, replacer, obj.post.body),
-            'share_url': obj.post.get_share_url(obj.recipient_id)
+            'body': re.sub(MARKDOWN_LINK_REGEX, replacer, obj.post.body)
         },
         recipient=obj.recipient.get_formatted_address(),
         tracking_pixel_url=reverse(
