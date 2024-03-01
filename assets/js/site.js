@@ -46,4 +46,5 @@ document.addEventListener(
     true
 )
 
+import {} from './pagination'
 import {} from 'bootstrap'

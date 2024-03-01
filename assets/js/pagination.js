@@ -7,12 +7,34 @@ import adjust from './ratio'
                 const btn = container.querySelector('.btn-pagination')
                 const grid = container.querySelector('.grid')
                 let href = btn ? btn.getAttribute('href') : null
-                let scrollTimer, loadTimer
+                let oldBtn = btn
+
+                const finish = (newBtn) => {
+                    if (newBtn) {
+                        newBtn.addEventListener('click', 
+                            (e) => {
+                                if (newBtn.disabled) {
+                                    return
+                                }
+
+                                e.preventDefault()
+                                go()
+                            }
+                        )
+                    }
+
+                    oldBtn.parentNode.removeChild(oldBtn)
+
+                    if (newBtn) {
+                        grid.after(newBtn)
+                        oldBtn = newBtn
+                        href = newBtn.getAttribute('href')
+                    }
+                }
 
                 const go = () => {
-                    if (loadTimer) {
-                        return
-                    }
+                    btn.classList.add('disabled')
+                    btn.disabled = true
 
                     fetch(href).then(
                         (response) => {
@@ -51,13 +73,6 @@ import adjust from './ratio'
                                                 }
                                             )
                                         )
-
-                                        loadTimer = setTimeout(
-                                            () => {
-                                                finish(newBtn)
-                                            },
-                                            5000
-                                        )
                                     } else {
                                         finish(newBtn)
                                     }
@@ -71,58 +86,20 @@ import adjust from './ratio'
                     )
                 }
 
-                const finish = (newBtn) => {
-                    if (newBtn) {
-                        href = newBtn.href
-                    } else {
-                        href = null
-                    }
-
-                    if (scrollTimer) {
-                        clearTimeout(scrollTimer)
-                        scrollTimer = null
-                    }
-
-                    if (loadTimer) {
-                        clearTimeout(loadTimer)
-                        loadTimer = null
-                    }
-                }
-
-                const trigger = () => {
-                    if (scrollTimer) {
-                        return
-                    }
-
-                    if (href) {
-                        scrollTimer = setTimeout(
-                            () => {
-                                go()
-                                scrollTimer = null
-                            },
-                            1000
-                        )
-
-                        go()
-                    }
-                }
-
                 if (!btn) {
                     return
                 }
 
-                document.addEventListener('scroll', 
+                btn.addEventListener('click', 
                     (e) => {
-                        const offset = container.offsetTop + container.clientHeight
-                        const pageOffset = window.pageYOffset + window.innerHeight
-
-                        if(pageOffset > offset - 100) {
-                            trigger()
+                        if (btn.disabled) {
+                            return
                         }
+
+                        e.preventDefault()
+                        go()
                     }
                 )
-
-                btn.parentNode.removeChild(btn)
             }
         )
     }
