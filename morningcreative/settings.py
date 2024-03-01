@@ -61,7 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'morningcreative.newsletter.middleware.subscriber_middleware'
+    'morningcreative.newsletter.middleware.subscriber_middleware',
+    'morningcreative.pages.middleware.pages_middleware'
 ]
 
 ROOT_URLCONF = 'morningcreative.urls'
