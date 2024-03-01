@@ -1,0 +1,15 @@
+.object-tools a.deliverlink {
+    background-color: #276D31;
+    background-repeat: no-repeat;
+    background-position: right 9px center;
+    padding-right: 26px;
+    background-image: url('../img/tooltag-deliver.svg');
+}
+
+.object-tools a.testlink {
+    background-color: #AF8038;
+    background-repeat: no-repeat;
+    background-position: right 9px center;
+    padding-right: 26px;
+    background-image: url('../img/tooltag-deliver.svg');
+}
