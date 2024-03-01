@@ -74,23 +74,8 @@ def handler_404(request, exception):
 
         return HttpResponseRedirect(path)
 
-    slugs = request.path.split('/')[1:-1]
-    slugs = re.split(r'/|-', request.path)
-    query = ' '.join([slug for slug in slugs if slug])
-    results = search(query)
-
-    if results.count() == 1:
-        result = results[0]
-        if result.meta and (permalink := result.meta.get('permalink')):
-            return HttpResponseRedirect(permalink)
-
-        return HttpResponseRedirect(result.get_absolute_url())
-
     return TemplateResponse(
         request,
         '404.html',
-        {
-            'search_results': results
-        },
         status=404
     )
