@@ -71,8 +71,6 @@ class Post(models.Model):
                 lambda: send_deliveries(self.pk)
             )
 
-        transaction.on_commit(self.publish)
-
     @property
     def successful_deliveries(self):
         return self.deliveries.filter(
