@@ -51,16 +51,9 @@ class Post(models.Model):
         send_test_delivery.delay(self.pk, email)
 
     def get_recipients(self):
-        subscribers = Subscriber.objects.exclude(
+        return Subscriber.objects.exclude(
             email__in=Unsubscriber.objects.values_list('email', flat=True)
         )
-
-        if self.members_only:
-            subscribers = subscribers.filter(
-                email__in=User.objects.values_list('email', flat=True)
-            )
-
-        return subscribers
 
     @transaction.atomic
     def deliver(self, delayed=True):
