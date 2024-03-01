@@ -30,6 +30,10 @@ def main(request):
                 'label': 'Home'
             },
             {
+                'url': '/episodes/',
+                'label': 'Episode archive'
+            },
+            {
                 'url': '/prompt/',
                 'label': 'Journal prompt'
             }

@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.views.defaults import page_not_found, server_error
 from django.views.generic.base import TemplateView
-from .views import SearchEntryListView
+from .views import HomepageView, SearchEntryListView
 from . import sitemaps
 
 
@@ -15,6 +15,7 @@ urlpatterns = (
     path('prompt/', include('morningcreative.prompts.urls')),
     path('~/', include('morningcreative.oembed.urls')),
     path('search/', SearchEntryListView.as_view(), name='search_entry_list'),
+    path('', HomepageView.as_view(), name='home'),
     path('', include(sitemaps))
 )
 

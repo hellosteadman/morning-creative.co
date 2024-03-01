@@ -24,6 +24,12 @@ class EpisodeMixin(SEOMixin, LinkedDataMixin):
 
 
 class EpisodeListView(OpenGraphMixin, EpisodeMixin, ListView):
+    seo_title = 'Morning Creative episode archive'
+    seo_description = (
+        'Morning Creative is the daily podcast to help you reignite your '
+        'spark and set yourself up for the day, motivated and energised.'
+    )
+
     paginate_by = 12
     ld_type = 'PodcastSeries'
 
