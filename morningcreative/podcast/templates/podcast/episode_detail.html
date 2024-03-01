@@ -34,11 +34,8 @@
                 </div>
             {% endif %}
 
-            {% if object.oembed %}
-                <div class="margin-top-4 ratio ratio-unknown shadow-lg rounded-3 oembed-container">{{ object.oembed|oembed }}</div>
-            {% elif object.thumbnail %}
-                <img alt="Post thumbnail" src="{% thumbnail object.thumbnail '1872x1053' crop=True upscale=True %}" class="margin-top-4 img-fluid shadow-lg rounded-1">
-            {% endif %}
+            <div class="margin-top-4 ratio ratio-unknown shadow-lg rounded-3 oembed-container">{{ object.oembed|oembed }}</div>
+            {% include 'podcast/buttons.html' with centre=True margin=True %}
             
             <div class="grid margin-top-4">
                 <div class="cell-tablet-8 margin-x-auto order-2 order-laptop-1">
@@ -64,4 +61,6 @@
             </div>
         </aside>
     </section>
+
+    {% include 'podcast/buttons.html' with centre=True margin=True %}
 {% endblock body %}
