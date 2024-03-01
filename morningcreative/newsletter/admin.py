@@ -56,13 +56,6 @@ class PostAdmin(MarkdownxModelAdmin):
             )
         )
 
-    def save_related(self, request, form, formsets, change):
-        super().save_related(request, form, formsets, change)
-
-        obj = form.instance
-        if obj.published and obj.published < timezone.now().date():
-            obj.publish()
-
     def get_urls(self):
         def wrap(view):
             def wrapper(*args, **kwargs):
