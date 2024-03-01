@@ -3,5 +3,5 @@
 {% block object-tools-items %}
     {{ block.super }}
     <li><a href="{% url 'admin:newsletter_post_test' original.pk %}" class="testlink">Test</a></li>
-    <li><a href="{% url 'admin:newsletter_post_deliver' original.pk %}" class="deliverlink">Deliver</a></li>
+    <li><a href="{% url 'admin:newsletter_post_schedule' original.pk %}" class="deliverlink">Schedule</a></li>
 {% endblock object-tools-items %}

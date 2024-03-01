@@ -17,7 +17,7 @@
         &rsaquo; <a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a>
         &rsaquo; {% if has_view_permission %}<a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>{% else %}{{ opts.verbose_name_plural|capfirst }}{% endif %}
         &rsaquo; {% if has_view_permission %}<a href="{% url opts|admin_urlname:'change' object.pk|admin_urlquote %}">{{ object|truncatewords:"18" }}</a>{% else %}{{ object|truncatewords:"18" }}{% endif %}
-        &rsaquo; {% translate 'Deliver' %}
+        &rsaquo; {% translate 'Schedule' %}
     </div>
 {% endblock %}
 
@@ -40,17 +40,32 @@
                     </p>
                     {{ adminform.form.non_field_errors }}
                 {% endif %}
-                <h2>Deliver to {{ object.get_recipients.count }} recipient{{ object.get_recipients.count|pluralize }}?</h2>
+                <h2>Schedule for delivery to {{ object.get_recipients.count }} recipient{{ object.get_recipients.count|pluralize }}?</h2>
 
-                <ul>
-                    {% for recipient in object.get_recipients.all %}
-                        <li>{{ recipient.get_full_name|default:recipient.name|default:recipient.email }} ({{ recipient.email }})</li>
-                    {% endfor %}
-                </ul>
+                <div id="changelist">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email address</th>
+                                <th>UK delivery date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for recipient in object.get_recipients.all %}
+                                <tr>
+                                    <td>{{ recipient.get_full_name|default:recipient.name|default:recipient.email }}</td>
+                                    <td>{{ recipient.email }}</td>
+                                    <td>{{ recipient.get_delivery_date|time:'H:i' }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="submit-row">
-                <input type="submit" value="{% trans 'Deliver' %}" class="btn btn-warning btn-lg" name="_save">
+                <input type="submit" value="{% trans 'Schedule' %}" class="btn btn-warning btn-lg" name="_save">
             </div>
         </form>
     </div>

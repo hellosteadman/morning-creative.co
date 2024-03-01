@@ -73,9 +73,9 @@ class PostAdmin(MarkdownxModelAdmin):
                 name='%s_%s_test' % info
             ),
             path(
-                '<path:object_id>/deliver/',
-                wrap(self.deliver_view),
-                name='%s_%s_deliver' % info
+                '<path:object_id>/schedule/',
+                wrap(self.schedule_view),
+                name='%s_%s_schedule' % info
             )
         ] + urls
 
@@ -104,7 +104,7 @@ class PostAdmin(MarkdownxModelAdmin):
         next_url = request.GET.get('next') or obj_url
         return HttpResponseRedirect(next_url)
 
-    def deliver_view(self, request, object_id, extra_context=None):
+    def schedule_view(self, request, object_id, extra_context=None):
         obj = self.get_object(request, admin.utils.unquote(object_id))
         opts = obj._meta
         app_label = opts.app_label
@@ -121,7 +121,7 @@ class PostAdmin(MarkdownxModelAdmin):
         request.current_app = self.admin_site.name
 
         if request.method == 'POST':
-            obj.deliver()
+            obj.schedule()
             url = reverse(
                 'admin:%s_%s_change' % (
                     opts.app_label,
@@ -133,13 +133,13 @@ class PostAdmin(MarkdownxModelAdmin):
                 current_app=self.admin_site.name
             )
 
-            msg = 'The message is being delivered now.'
+            msg = 'The message is scheduled for delivery.'
             self.message_user(request, msg, messages.SUCCESS)
             return HttpResponseRedirect(url)
 
         return TemplateResponse(
             request,
-            'admin/newsletter/post/deliver_form.html',
+            'admin/newsletter/post/schedule_form.html',
             {
                 'add': False,
                 'change': False,
@@ -169,7 +169,7 @@ class PostAdmin(MarkdownxModelAdmin):
                 'to_field_var': '_to_field',
                 'is_popup_var': '_popup',
                 'app_label': app_label,
-                'title': 'Deliver',
+                'title': 'Schedule delivery',
                 **self.admin_site.each_context(request)
             }
         )
@@ -226,6 +226,7 @@ class SubscriberAdmin(admin.ModelAdmin):
                 'name',
                 'subscribed',
                 'last_seen',
+                'timezone',
                 ('city', 'country')
             )
 

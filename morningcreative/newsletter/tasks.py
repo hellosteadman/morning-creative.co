@@ -114,29 +114,6 @@ def send_test_delivery(pk, email):
 
 
 @transaction.atomic
-@job('default', timeout='5m')
-def send_deliveries(pk):
-    from .models import Post
-
-    obj = Post.objects.filter(pk=pk).first()
-    if obj is None:
-        return
-
-    for recipient in obj.get_recipients().iterator():
-        delivery = obj.deliveries.select_for_update().filter(
-            recipient=recipient
-        ).first()
-
-        if delivery is None:
-            delivery = obj.deliveries.create(
-                recipient=recipient
-            )
-
-        if delivery.delivered is None:
-            transaction.on_commit(delivery.deliver)
-
-
-@transaction.atomic
 @job('default', timeout='1m')
 def send_delivery(pk):
     from .models import Delivery

@@ -10,10 +10,11 @@ from uuid import uuid4
 from .query import SubscriberQuerySet
 from .tasks import (
     set_subscriber_location,
-    send_deliveries,
     send_test_delivery,
     send_delivery
 )
+
+import pytz
 
 
 class Post(models.Model):
@@ -56,20 +57,42 @@ class Post(models.Model):
         )
 
     @transaction.atomic
-    def deliver(self, delayed=True):
+    def schedule(self, delayed=True):
         self.cued_for_delivery = True
         self.save(
             update_fields=('cued_for_delivery',)
         )
 
-        if delayed:
-            transaction.on_commit(
-                lambda: send_deliveries.delay(self.pk)
+        published = timezone.datetime(
+            self.published.year,
+            self.published.month,
+            self.published.day,
+            0,
+            0,
+            0,
+            0
+        )
+
+        for recipient in self.get_recipients():
+            scheduled = published.astimezone(
+                recipient.get_timezone()
+            ).replace(
+                hour=19
             )
-        else:
-            transaction.on_commit(
-                lambda: send_deliveries(self.pk)
-            )
+
+            if self.deliveries.filter(
+                recipient=recipient
+            ).exists():
+                self.deliveries.filter(
+                    recipient=recipient
+                ).update(
+                    scheduled=scheduled
+                )
+            else:
+                self.deliveries.create(
+                    recipient=recipient,
+                    scheduled=published
+                )
 
     @property
     def successful_deliveries(self):
@@ -125,6 +148,15 @@ class Subscriber(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=255)
     subscribed = models.DateTimeField(auto_now_add=True)
+    timezone = models.CharField(
+        max_length=50,
+        default=settings.TIME_ZONE,
+        choices=[
+            (z, z.replace('_', ' '))
+            for z in sorted(pytz.common_timezones_set)
+        ]
+    )
+
     city = models.CharField(max_length=100, null=True, editable=False)
     country = models.CharField(
         max_length=2,
@@ -176,6 +208,19 @@ class Subscriber(models.Model):
                     )
                 )
 
+    def get_timezone(self):
+        return pytz.timezone(self.timezone)
+
+    def get_delivery_date(self):
+        return timezone.now().astimezone(
+            self.get_timezone()
+        ).replace(
+            hour=19,
+            minute=0,
+            second=0,
+            microsecond=0
+        )
+
     class Meta:
         ordering = ('-subscribed',)
         get_latest_by = 'subscribed'
@@ -207,6 +252,7 @@ class Delivery(models.Model):
         related_name='deliveries'
     )
 
+    scheduled = models.DateTimeField(null=True, blank=True)
     delivered = models.DateTimeField(null=True, editable=False)
 
     def deliver(self):

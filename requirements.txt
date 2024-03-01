@@ -1,7 +1,6 @@
 bleach==6.1.0
 bs4==0.0.2
 dj-database-url==2.1.0
-Django==4.2.10
 django-anymail==10.2
 django-bootstrap-v5==1.0.11
 django-cors-headers==4.3.1
@@ -9,6 +8,7 @@ django-markdownx==4.0.7
 django-rq==2.10.1
 django-taggit==5.0.1
 django-watson==1.6.3
+Django==4.2.10
 easy-thumbnails==2.8.5
 feedparser==6.0.11
 html2text==2024.2.26
@@ -19,6 +19,7 @@ PyJWT==2.8.0
 pymemcache==4.0.0
 pyquery==2.0.0
 python-dateutil==2.8.2
+pytz==2024.1
 PyYAML==6.0.1
 requests==2.31.0
 rq==1.16.0
