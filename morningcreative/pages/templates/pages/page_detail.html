@@ -4,9 +4,13 @@
 {% block body %}
     <section class="margin-top-4 container">
         <article class="page page-id_{{ object.pk }} margin-bottom-3">
-            <h1 class="display-1 font-weight-bold text-center">
-                <a href="{{ object.get_absolute_url }}" class="post-title">{{ object.headline|default:object.name }}</a>
-            </h1>
+            <div class="grid margin-top-4">
+                <div class="cell-tablet-8 margin-x-auto">
+                    <h1 class="display-1 font-weight-bold">
+                        <a href="{{ object.get_absolute_url }}" class="post-title">{{ object.headline|default:object.name }}</a>
+                    </h1>
+                </div>
+            </div>
 
             {% if object.oembed %}
                 <div class="margin-top-4 ratio ratio-unknown shadow-lg rounded-3 oembed-container">{{ object.oembed|oembed }}</div>
