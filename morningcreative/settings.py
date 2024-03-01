@@ -9,6 +9,19 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = not not os.getenv('DEBUG')
 ALLOWED_HOSTS = ['*']
 DOMAIN = os.getenv('DOMAIN', 'morningcreative.co')
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler'
+        }
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING'
+    }
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',
