@@ -9,22 +9,24 @@
             </div>
 
             <div class="cell-tablet-12">
-                <div class="background-light rounded-3 padding-3">
-                    <p class="h3">Get a prompt like this in your inbox every weekday.</p>
-                    <form action="{% url 'create_subscriber' %}" method="post" class="show-tablet-flex">
-                        <div class="margin-end-tablet-5 flex-grow-1">{% bootstrap_field subscribe_form.email show_label=False %}</div>
-                        <button type="submit" class="btn btn-primary btn-lg">
-                            <i class="bi bi-lightbulb"></i>
-                            Brighten your inbox
-                        </button>
+                <p class="margin-top-4 display-5 font-weight-normal">Get a prompt like this in your inbox every weekday.</p>
+                <form action="{% url 'create_subscriber' %}" method="post" class="show-tablet-flex margin-bottom-2">
+                    <div class="margin-end-tablet-4 flex-grow-1">{% bootstrap_field subscribe_form.email show_label=False %}</div>
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-lightbulb"></i>
+                        Brighten your inbox
+                    </button>
 
-                        {% csrf_token %}
-                    </form>
-                </div>
+                    {% csrf_token %}
+                </form>
+                <p>
+                    I won&rsquo;tt sell your data or abuse your inbox, ever.
+                    Here&rsquo;s my <a href="/">privacy policy</a>.
+                </p>
             </div>
         </div>
 
-        <div class="grid">
+        <div class="grid margin-top-5">
             <div class="cell-tablet-8">
                 <p class="markdown">{% miditags object.body %}</p>
             </div>

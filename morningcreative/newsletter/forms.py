@@ -91,10 +91,10 @@ class CreateSubscriberForm(forms.Form):
     email = forms.EmailField(
         label='Enter your email address',
         max_length=255,
-        help_text='We won\'t sell your data or abuse your inbox, ever.',
         widget=forms.EmailInput(
             attrs={
-                'placeholder': 'jo@bloggs.com'
+                'placeholder': 'jo@bloggs.com',
+                'class': 'form-control-lg'
             }
         )
     )
