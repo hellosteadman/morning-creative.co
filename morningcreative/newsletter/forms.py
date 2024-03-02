@@ -4,7 +4,7 @@ from django.db import transaction
 from django.urls import reverse
 from hashlib import sha256
 from morningcreative.mail.tasks import send_email
-from .helpers import random_phrase
+from .helpers import random_code
 from .models import Subscriber, Unsubscriber
 import jwt
 import pytz
@@ -131,12 +131,12 @@ class CreateSubscriberForm(forms.Form):
         ):
             return True
 
-        phrase = random_phrase()
-        hashed_phrase = sha256(phrase.encode('utf-8')).hexdigest()
+        code = random_code()
+        hashed_code = sha256(code.encode('utf-8')).hexdigest()
         params = {
             'n': self.cleaned_data['name'] or '',
             'e': self.cleaned_data['email'].lower(),
-            'p': hashed_phrase,
+            'c': hashed_code,
             'z': self.cleaned_data['timezone']
         }
 
@@ -156,7 +156,7 @@ class CreateSubscriberForm(forms.Form):
                     settings.DOMAIN,
                     reverse('confirm_subscription', args=(token,))
                 ),
-                'phrase': phrase
+                'code': code
             },
             (
                 self.cleaned_data['name'] or '',
@@ -175,13 +175,14 @@ class MiniCreateSubscriberForm(CreateSubscriberForm):
 
 
 class ConfirmSubscriptionForm(forms.Form):
-    phrase = forms.CharField(
+    code = forms.CharField(
         widget=forms.TextInput(
             attrs={
                 'class': 'form-control-lg',
                 'autofocus': True
             }
-        )
+        ),
+        max_length=4
     )
 
     def __init__(self, *args, **kwargs):
@@ -189,16 +190,16 @@ class ConfirmSubscriptionForm(forms.Form):
         self.instance = kwargs.pop('instance', None)
         super().__init__(*args, **kwargs)
 
-    def clean_phrase(self):
-        phrase = self.cleaned_data['phrase'].lower().strip()
-        hashed_phrase = sha256(phrase.encode('utf-8')).hexdigest()
+    def clean_code(self):
+        code = self.cleaned_data['code'].lower().strip()
+        hashed_code = sha256(code.encode('utf-8')).hexdigest()
 
-        if hashed_phrase != self.token['p']:
+        if hashed_code != self.token['c']:
             raise forms.ValidationError(
-                'Please enter the phrase as specified in the email.'
+                'Please enter the four-digit code as specified in the email.'
             )
 
-        return self.cleaned_data['phrase']
+        return self.cleaned_data['code']
 
     def save(self, commit=True):
         return Subscriber.objects.create_from_token(self.token)

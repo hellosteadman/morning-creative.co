@@ -1,10 +1,12 @@
 Hi!
 
-To confirm you'd like to receive new Morning Creative journal prompts, follow the link below and when prompted for a secret phrase, enter
+To confirm you'd like to receive new Morning Creative journal prompts, follow the link below and when prompted for a four-digit code, enter
 
-### {{ phrase }}
+### {{ code }}
 
-OK, here's the link:
+This affirms your consent and shows you&rsquo;re not a bot.
+
+Here's the link:
 
 {{ url }}
 
