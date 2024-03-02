@@ -19,6 +19,7 @@
   "dependencies": {
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
+    "crypto-js": "^4.2.0",
     "imagesloaded": "^5.0.0",
     "masonry-layout": "^4.2.2",
     "moment": "^2.29.4"
