@@ -178,7 +178,7 @@ class ConfirmSubscriptionForm(forms.Form):
     code = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control-lg',
+                'class': 'form-control-lg confirmation-code-input',
                 'autofocus': True
             }
         ),
@@ -189,6 +189,8 @@ class ConfirmSubscriptionForm(forms.Form):
         self.token = kwargs.pop('token')
         self.instance = kwargs.pop('instance', None)
         super().__init__(*args, **kwargs)
+
+        self.fields['code'].widget.attrs['data-hash'] = self.token['c']
 
     def clean_code(self):
         code = self.cleaned_data['code'].lower().strip()

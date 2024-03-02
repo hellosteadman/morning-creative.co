@@ -47,4 +47,5 @@ document.addEventListener(
 )
 
 import {} from './pagination'
+import {} from './confirmation-code'
 import {} from 'bootstrap'
