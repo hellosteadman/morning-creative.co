@@ -26,10 +26,6 @@ def main(request):
     return {
         'main_menu': [
             {
-                'url': '/',
-                'label': 'Home'
-            },
-            {
                 'url': '/episodes/',
                 'label': 'Episode archive'
             },
