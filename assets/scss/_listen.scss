@@ -1,0 +1,13 @@
+.btn-subscribe {
+    text-align: left;
+    width: 100%;
+
+    @include media-breakpoint-up(tablet) {
+        width: auto;
+    }
+
+    svg {
+        height: 3rem;
+        margin-right: 1rem;
+    }
+}

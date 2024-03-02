@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from django.utils import timezone
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from easy_thumbnails.files import get_thumbnailer
 from html2text import html2text
 from morningcreative import oembed
@@ -127,3 +127,9 @@ class EpisodeDetailView(OpenGraphArticleMixin, EpisodeMixin, DetailView):
             'related_posts': obj.get_related_posts(),
             **super().get_context_data(**kwargs)
         }
+
+
+class ListenView(SEOMixin, TemplateView):
+    seo_title = 'Listen to Morning Creative'
+    robots = 'noindex'
+    template_name = 'podcast/listen.html'
