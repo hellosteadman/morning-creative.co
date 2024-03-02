@@ -161,7 +161,8 @@ class CreateSubscriberForm(forms.Form):
             (
                 self.cleaned_data['name'] or '',
                 self.cleaned_data['email']
-            )
+            ),
+            html_template='newsletter/confirm_subscription_email.html'
         )
 
         return False
