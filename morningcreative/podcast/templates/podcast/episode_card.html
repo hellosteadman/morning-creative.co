@@ -2,12 +2,12 @@
 
 <article class="post-card post post-id_{{ object.pk }} post-kind_{{ object.kind.slug }}{% if object.series %} post-series_{{ object.series.slug }}{% endif %} margin-bottom-5"{% if not full %}{% endif %}>
     {% if object.thumbnail %}
-        <a href="{{ object.get_absolute_url }}">
-            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.thumbnail '1152x648' crop=True %}">
+        <a href="{{ object.get_absolute_url }}" class="post-thumbnail-container">
+            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.thumbnail '1152x648' crop=True %}" class="post-thumbnail">
         </a>
     {% elif object.series.thumbnail %}
-        <a href="{{ object.get_absolute_url }}">
-            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.series.thumbnail '1152x648' crop=True %}">
+        <a href="{{ object.get_absolute_url }}" class="post-thumbnail-container">
+            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.series.thumbnail '1152x648' crop=True %}" class="post-thumbnail">
         </a>
     {% endif %}
 

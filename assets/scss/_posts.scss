@@ -3,21 +3,29 @@
     border-radius: $border-radius;
     box-shadow: $box-shadow-lg;
 
-    .post-repost, .post-header, .post-body, .post-footer {
+    .post-body {
         padding: 1rem;
-    }
-
-    .post-repost {
-        background: #ECF4FB;
-    }
-
-    .post-series-thumbnail {
-        display: block;
-        width: 64px;
-        height: 64px;
     }
 
     p:last-child {
         margin-bottom: 0;
+    }
+
+    .post-thumbnail-container {
+        display: block;
+        position: relative;
+        overflow: hidden;
+
+        &:after {
+            position: absolute;
+            background: url('../img/post-curve.svg') no-repeat bottom left;
+            background-size: 100% auto;
+            bottom: -2px;
+            width: 100%;
+            height: 22%;
+            display: block;
+            content: ' ';
+            margin: 0;
+        }
     }
 }
