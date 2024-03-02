@@ -85,7 +85,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'morningcreative.context_processors.main'
+                'morningcreative.context_processors.main',
+                'morningcreative.newsletter.context_processors.newsletter'
             ]
         }
     }

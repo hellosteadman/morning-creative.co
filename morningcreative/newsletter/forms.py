@@ -167,6 +167,12 @@ class CreateSubscriberForm(forms.Form):
         return False
 
 
+class MiniCreateSubscriberForm(CreateSubscriberForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs['class'] = ''
+
+
 class ConfirmSubscriptionForm(forms.Form):
     phrase = forms.CharField(
         widget=forms.TextInput(
