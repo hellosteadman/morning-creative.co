@@ -187,3 +187,13 @@ DEFAULT_FROM_EMAIL = 'noreply@out.hellosteadman.com'
 IPINFO_API_URL = 'https://ipinfo.io/%s'
 IPINFO_API_KEY = os.getenv('IPINFO_API_KEY')
 SCREENSHOT_API_KEY = os.getenv('SCREENSHOT_API_KEY')
+
+
+if os.getenv('SENTRY_DSN'):
+    import sentry_sdk
+
+    sentry_sdk.init(
+        dsn=os.getenv('SENTRY_DSN'),
+        traces_sample_rate=1,
+        profiles_sample_rate=1
+    )
