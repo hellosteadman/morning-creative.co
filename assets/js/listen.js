@@ -64,6 +64,7 @@
                         listenContainer.style.right = 0
                         listenContainer.style.left = 0
                         listenContainer.style.transition = '.3s bottom ease'
+                        listenContainer.style.zIndex = 100
 
                         document.body.firstChild.before(listenContainer)
                         closeBtn.addEventListener('click',
