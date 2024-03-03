@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.views.generic import DetailView
 from morningcreative.newsletter.forms import CreateSubscriberForm
 from morningcreative.podcast.models import Episode
@@ -16,7 +17,9 @@ class LatestPromptView(SEOMixin, DetailView):
         )
 
     def get_object(self):
-        return Prompt.objects.latest()
+        return Prompt.objects.filter(
+            published__lte=timezone.now().date()
+        ).latest()
 
     def get_context_data(self, **kwargs):
         obj = self.get_object()
