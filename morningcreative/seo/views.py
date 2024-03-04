@@ -128,7 +128,7 @@ class OpenGraphMixin(object):
                         exc_info=True
                     )
 
-            if image and isinstance(image, ImageFieldFile) and image:
+            if image and isinstance(image, ImageFieldFile):
                 return image.url
 
     def get_og_url(self):

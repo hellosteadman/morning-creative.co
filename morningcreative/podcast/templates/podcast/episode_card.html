@@ -5,9 +5,9 @@
         <a href="{{ object.get_absolute_url }}" class="post-thumbnail-container">
             <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.thumbnail '1152x648' crop=True %}" class="post-thumbnail">
         </a>
-    {% elif object.series.thumbnail %}
+    {% elif object.thumbnail %}
         <a href="{{ object.get_absolute_url }}" class="post-thumbnail-container">
-            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.series.thumbnail '1152x648' crop=True %}" class="post-thumbnail">
+            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.thumbnail '1152x648' crop=True %}" class="post-thumbnail">
         </a>
     {% endif %}
 
