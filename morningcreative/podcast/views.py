@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from django.db.models.fields.files import ImageFieldFile
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, TemplateView
 from easy_thumbnails.files import get_thumbnailer
@@ -12,6 +13,7 @@ from morningcreative.seo.views import (
 )
 
 from .models import Episode
+import logging
 
 
 class EpisodeMixin(SEOMixin, LinkedDataMixin):
@@ -60,6 +62,27 @@ class EpisodeDetailView(OpenGraphArticleMixin, EpisodeMixin, DetailView):
         obj = self.get_object()
         excerpt = obj.get_excerpt()
         return html2text(excerpt, bodywidth=0)
+
+    def get_og_image(self):
+        if image := self.get_object().poster:
+            try:
+                return image.get_thumbnail(
+                    {
+                        'size': (1200, 630),
+                        'crop': True,
+                        'upscale': True
+                    }
+                ).url
+            except Exception:
+                logging.warning(
+                    'Error generating Open Graph thumbnail',
+                    exc_info=True
+                )
+
+            if isinstance(image, ImageFieldFile):
+                return image.url
+
+        return super().get_og_image()
 
     def get_ld_attributes(self):
         obj = self.get_object()

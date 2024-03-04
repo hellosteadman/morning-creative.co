@@ -1,9 +1,9 @@
 {% load podcast miditags thumbnail %}
 
 <article class="post-card post post-id_{{ object.pk }} post-kind_{{ object.kind.slug }}{% if object.series %} post-series_{{ object.series.slug }}{% endif %} margin-bottom-5"{% if not full %}{% endif %}>
-    {% if object.thumbnail %}
+    {% if object.poster %}
         <a href="{{ object.get_absolute_url }}" class="post-thumbnail-container">
-            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.thumbnail '1152x648' crop=True %}" class="post-thumbnail">
+            <img alt="{{ object.kind.name }} thumbnail" src="{% thumbnail object.poster '1152x648' crop=True %}" class="post-thumbnail">
         </a>
     {% elif object.thumbnail %}
         <a href="{{ object.get_absolute_url }}" class="post-thumbnail-container">
