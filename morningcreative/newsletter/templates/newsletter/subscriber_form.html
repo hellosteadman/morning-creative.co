@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+{% block body %}
+    <div class="container margin-y-4">
+        <div class="grid">
+            <div class="cell-tablet-8">
+                <h1 class="h2">Subscribe</h1>
+                <p class="lead font-weight-normal">Sign up with your name and email address to receive daily prompts for your journal.</p>
+
+                <form action="{{ request.path }}" method="post">
+                    {% for field in form.visible_fields %}
+                        {% bootstrap_field field form_group_class='form-group margin-bottom-4' %}
+                    {% endfor %}
+                    <button type="submit" class="margin-top-4 btn btn-lg btn-primary">Subscribe</button>
+
+                    {{ form.hidden_fields|join:'' }}
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
